@@ -1,9 +1,21 @@
 # Deploy on Cloudflare (fix “no repositories”)
 
-Your code **is** on GitHub at `notfaadiroziroti-debug/overwatch-hacks` on branch `main` (commit `59f965f`).  
-Cloudflare shows **no repositories** when the GitHub connection cannot see your repos — usually a **private repo** or **Cloudflare GitHub app permissions**.
+Your code **is** on GitHub: `https://github.com/notfaadiroziroti-debug/overwatch-hacks` · branch **`main`**.
 
-## Option A — Fix GitHub ↔ Cloudflare (recommended for auto deploy)
+Cloudflare shows **“There are no repositories on this GitHub account”** when the **Cloudflare GitHub App** is not allowed to read your repos (common with **private** repos or **zero repos selected** during install).
+
+### Fix the empty repo list (do this first)
+
+1. Open (while logged in as **`notfaadiroziroti-debug`**):  
+   **https://github.com/apps/cloudflare-workers-and-pages/installations/new**
+2. Choose **Only select repositories** → pick **`overwatch-hacks`**, or choose **All repositories**.
+3. In Cloudflare → **Workers & Pages** → connect GitHub again → **`overwatch-hacks`** should appear.
+
+If the repo page is 404 in the browser, you are on the wrong GitHub account, or the repo is private and you are not signed in.
+
+**Optional:** **Settings → General → Danger zone → Change visibility → Public** so “Import Git URL” works without extra tokens.
+
+## Option A — Cloudflare dashboard Git connect
 
 1. Sign in to GitHub as **`notfaadiroziroti-debug`** and open:  
    https://github.com/notfaadiroziroti-debug/overwatch-hacks  
