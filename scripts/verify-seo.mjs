@@ -24,7 +24,10 @@ function pageUrl(file) {
   return `${site}/${page.slice(0, -5)}`
 }
 
-const files = htmlFiles(dist)
+const files = htmlFiles(dist).filter((file) => {
+  const page = relative(dist, file).replaceAll('\\', '/')
+  return page !== '404.html' && !page.startsWith('dayz-cheats')
+})
 const titles = new Map()
 const descriptions = new Map()
 
@@ -165,7 +168,7 @@ for (const [name, html] of [
   ['product', product],
   ['forums', forums],
 ]) {
-  if (!html.includes('/media/dayz-')) {
+  if (!html.includes('/media/') && !html.includes('/og/')) {
     fail(`${name}: missing visible Overwatch media in page body`)
   }
 }

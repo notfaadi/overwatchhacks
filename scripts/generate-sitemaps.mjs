@@ -3,7 +3,7 @@
  * One urlset only (never a sitemap index). 404 is excluded.
  */
 import { existsSync, readFileSync, readdirSync, unlinkSync, writeFileSync } from 'node:fs'
-import { dirname, join } from 'node:path'
+import { dirname, join, relative } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
@@ -106,17 +106,30 @@ function loadGames() {
 }
 
 function loadForums() {
-  const src = readFileSync(join(dataDir, 'blogs.ts'), 'utf8')
-  const pattern =
-    /slug:\s*['"]([^'"]+)['"],\s*title:\s*['"]([^'"]+)['"],\s*excerpt:\s*['"]([^'"]+)['"],\s*metaTitle:\s*['"]([^'"]+)['"],\s*metaDescription:\s*['"]([^'"]+)['"],[\s\S]*?date:\s*['"](\d{4}-\d{2}-\d{2})['"]/g
-  return [...src.matchAll(pattern)].map((match) => ({
-    slug: match[1],
-    title: match[2],
-    excerpt: match[3],
-    metaTitle: match[4],
-    metaDescription: match[5],
-    date: match[6],
-  }))
+  const sources = [
+    join(dataDir, 'blogs.ts'),
+    join(dataDir, 'keyword-guides.ts'),
+    join(dataDir, 'seo-meta-pages.ts'),
+  ]
+  const bySlug = new Map()
+
+  for (const filePath of sources) {
+    if (!existsSync(filePath)) continue
+    const src = readFileSync(filePath, 'utf8')
+    for (const match of src.matchAll(/^\s*slug:\s*['"]([^'"]+)['"]/gm)) {
+      const slug = match[1]
+      const slice = src.slice(match.index ?? 0, (match.index ?? 0) + 1200)
+      const title = slice.match(/title:\s*['"]([^'"]+)['"]/)?.[1] || slug
+      const excerpt = slice.match(/excerpt:\s*['"]([^'"]+)['"]/)?.[1] || ''
+      const metaTitle = slice.match(/metaTitle:\s*['"]([^'"]+)['"]/)?.[1] || title
+      const metaDescription =
+        slice.match(/metaDescription:\s*['"]([^'"]+)['"]/)?.[1] || excerpt || title
+      const date = slice.match(/date:\s*['"](\d{4}-\d{2}-\d{2})['"]/)?.[1] || TODAY
+      bySlug.set(slug, { slug, title, excerpt, metaTitle, metaDescription, date })
+    }
+  }
+
+  return [...bySlug.values()]
 }
 
 function loadStaticRoutes() {
@@ -358,7 +371,34 @@ function collectAllPaths(games, forums, staticRoutes) {
   ])
   // Never index error page
   paths.delete('/404')
+  paths.delete('/dayz-cheats')
   return [...paths]
+}
+
+/** After `astro build`, mirror every HTML file in dist (source of truth for verify-seo). */
+function pathsFromDist() {
+  const distDir = join(root, 'dist')
+  if (!existsSync(distDir)) return null
+
+  function walkHtml(dir, out = []) {
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      const full = join(dir, entry.name)
+      if (entry.isDirectory()) walkHtml(full, out)
+      else if (entry.name.endsWith('.html')) out.push(full)
+    }
+    return out
+  }
+
+  return walkHtml(distDir)
+    .map((file) => {
+      const rel = relative(distDir, file).replaceAll('\\', '/')
+      if (rel === '404.html') return null
+      if (rel === 'dayz-cheats/index.html' || rel === 'dayz-cheats.html') return null
+      if (rel === 'index.html') return '/'
+      if (rel.endsWith('/index.html')) return `/${rel.slice(0, -'/index.html'.length)}`
+      return `/${rel.slice(0, -5)}`
+    })
+    .filter(Boolean)
 }
 
 function buildSitemap(games, forums, allPaths) {
@@ -478,14 +518,20 @@ function main() {
   const games = loadGames()
   const forums = loadForums()
   const staticRoutes = loadStaticRoutes()
-  const allPaths = collectAllPaths(games, forums, staticRoutes)
+  const distPaths = pathsFromDist()
+  const allPaths = distPaths?.length
+    ? distPaths
+    : collectAllPaths(games, forums, staticRoutes)
   const sitemap = buildSitemap(games, forums, allPaths)
   validate(games, forums, allPaths, sitemap)
 
-  writeFileSync(join(publicDir, 'sitemap.xml'), sitemap, 'utf8')
-  writeFileSync(
-    join(publicDir, 'robots.txt'),
-    [
+  const distDir = join(root, 'dist')
+  const sitemapTargets = [join(publicDir, 'sitemap.xml')]
+  if (existsSync(distDir)) sitemapTargets.push(join(distDir, 'sitemap.xml'))
+  for (const target of sitemapTargets) {
+    writeFileSync(target, sitemap, 'utf8')
+  }
+  const robotsBody = [
       'User-agent: Googlebot',
       'Allow: /',
       'Allow: /sitemap.xml',
@@ -522,9 +568,12 @@ function main() {
       '',
       `Sitemap: ${siteUrl('/sitemap.xml')}`,
       '',
-    ].join('\n'),
-    'utf8',
-  )
+    ].join('\n')
+
+  writeFileSync(join(publicDir, 'robots.txt'), robotsBody, 'utf8')
+  if (existsSync(distDir)) {
+    writeFileSync(join(distDir, 'robots.txt'), robotsBody, 'utf8')
+  }
 
   for (const name of [
     'sitemap-pages.xml',

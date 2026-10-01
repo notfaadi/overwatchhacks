@@ -192,9 +192,9 @@ const RAW: MetaPage[] = [
   {
     slug: 'best-overwatch-hacks-2025-top-5-reviewed',
     title: 'Best Overwatch Hacks 2025 — Top 5 Reviewed',
-    metaTitle: 'Best Overwatch Hacks 2025 | Top 5 Cheats Reviewed & Tested',
+    metaTitle: 'Best Overwatch Hacks 2025 | Top 5 Cheats Reviewed (Forum Guide)',
     metaDescription:
-      'We tested 47 Overwatch hacks. Here are the only 5 that actually work in 2025. Undetected, feature-rich, and affordable. See our #1 pick.',
+      'Forum guide: we tested 47 Overwatch hacks. Here are five that worked in 2025 — undetected, feature-rich, and affordable. See our #1 pick on overwatchhack.org.',
     tag: 'Reviews',
     searchTerms: 'best overwatch hacks 2025 top 5 reviewed tested',
   },
@@ -210,9 +210,9 @@ const RAW: MetaPage[] = [
   {
     slug: 'how-to-hack-overwatch-2025-guide',
     title: 'How to Hack Overwatch 2025 — Step-by-Step',
-    metaTitle: 'How to Hack Overwatch 2025 | Step-by-Step Guide | No Ban',
+    metaTitle: 'How to Hack Overwatch 2025 | Step-by-Step Forum Guide',
     metaDescription:
-      'Complete guide to installing Overwatch hacks safely. Avoid detection, configure settings, and stay undetected. Works for beginners. Updated methods.',
+      'Forum walkthrough for installing Overwatch hacks safely — detection tips, settings, and load order. Beginner-friendly methods updated for current seasons.',
     tag: 'Guide',
     searchTerms: 'how to hack overwatch 2025 step by step no ban',
   },
@@ -228,18 +228,18 @@ const RAW: MetaPage[] = [
   {
     slug: 'is-overwatch-hack-safe-faq-2025',
     title: 'Is Overwatch Hack Safe? — Ban Risks FAQ',
-    metaTitle: 'Is Overwatch Hack Safe? | Ban Risks & Detection 2025 | FAQ',
+    metaTitle: 'Is Overwatch Hack Safe? | Ban Risks Forum FAQ 2025',
     metaDescription:
-      'Everything about Overwatch hack safety. Detection methods, ban rates, and how to avoid getting banned. Read before downloading any cheat.',
+      'Forum FAQ on Overwatch hack safety — detection methods, ban rates, and how to reduce risk before you download or load any cheat build.',
     tag: 'FAQ',
     searchTerms: 'is overwatch hack safe ban risks detection 2025 faq',
   },
   {
     slug: 'overwatch-hack-not-working-troubleshooting',
     title: 'Overwatch Hack Not Working? — Fixes',
-    metaTitle: 'Overwatch Hack Not Working? | Fix Errors & Troubleshooting 2025',
+    metaTitle: 'Overwatch Hack Not Working? | Forum Troubleshooting 2025',
     metaDescription:
-      'Common Overwatch cheat problems solved. Black screen, injection failed, game crash fixes. Get your hack working now with our guide.',
+      'Forum fixes for Overwatch cheat errors — black screen, injection failed, and crash loops. Step-by-step loader and menu troubleshooting on overwatchhack.org.',
     tag: 'Support',
     searchTerms: 'overwatch hack not working fix errors troubleshooting black screen injection failed',
   },
@@ -273,9 +273,9 @@ const RAW: MetaPage[] = [
   {
     slug: 'overwatch-2-cheats-working-hacks-undetected-2025',
     title: 'Overwatch 2 Cheats — Working Hacks & ESP',
-    metaTitle: 'Overwatch 2 Cheats | Working Hacks, Aimbots & ESP [Undetected 2025]',
+    metaTitle: 'Overwatch 2 Cheats Forum | Working Hacks & ESP Guide 2025',
     metaDescription:
-      'Premium Overwatch 2 hacks with humanized aimbot, 3D radar, and loot unlocker. Private build, no detection history. Download now for Windows 10/11.',
+      'Forum overview of working Overwatch 2 cheats — humanized aimbot, 3D radar, and feature checklist before checkout on overwatchhack.org for Windows 10/11.',
     tag: 'Product',
     searchTerms: 'overwatch 2 cheats working hacks aimbots esp undetected 2025',
   },
