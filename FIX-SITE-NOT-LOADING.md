@@ -1,6 +1,16 @@
 # `overwatchhack.org` shows DNS_PROBE_FINISHED_NXDOMAIN
 
-Your **Cloudflare deploy is OK**. The site answers on the public internet. The error is on **your PC’s DNS path** (Wi‑Fi router **192.168.100.1**).
+## Do this first (on your PC)
+
+**Double‑click:** `scripts\FIX-SITE-NOW.bat` → click **Yes** on the admin prompt → close Chrome → open `https://overwatchhack.org`.
+
+No admin? Chrome → **Settings → Privacy and security → Security → Use secure DNS → With Custom** → paste:
+
+`https://cloudflare-dns.com/dns-query`
+
+---
+
+Your **Cloudflare deploy is OK**. Google DNS (`8.8.8.8`) resolves the site. Your **Wi‑Fi router DNS (`192.168.100.1`) does not** — that is what Chrome uses, so you see NXDOMAIN.
 
 ## What we measured
 
