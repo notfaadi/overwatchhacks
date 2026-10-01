@@ -1,0 +1,636 @@
+@import '@fontsource/geist/latin-400.css';
+@import '@fontsource/geist/latin-600.css';
+@import '@fontsource/geist/latin-700.css';
+@import '@fontsource/silkscreen/latin-400.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Range-deck palette — charcoal, paper ink, signal orange */
+:root {
+  --bg: #0c0d10;
+  --bg-elevated: #14161c;
+  --bg-band: #12141a;
+  --bg-card: #1a1d26;
+  --bg-card-hover: #232734;
+  --ink: #f7f4ee;
+  --muted: rgba(247, 244, 238, 0.62);
+  --border: rgba(249, 158, 26, 0.22);
+  --border-strong: rgba(249, 158, 26, 0.6);
+  --accent: #f99e1a;
+  --accent-soft: #ffd08a;
+  --accent-deep: #c56a00;
+  --success: #7dcea0;
+  --glow: rgba(249, 158, 26, 0.35);
+  --glow-soft: rgba(255, 208, 138, 0.12);
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+body {
+  margin: 0;
+  font-family: 'Geist', 'Geist Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background:
+    radial-gradient(ellipse 70% 40% at 80% -10%, rgba(249, 158, 26, 0.14), transparent 55%),
+    var(--bg);
+  color: var(--ink);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overflow-x: hidden;
+}
+
+@layer components {
+  .page-x {
+    @apply px-5 sm:px-8 lg:px-12;
+  }
+}
+
+@layer utilities {
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+}
+
+.search-results {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.search-results::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.cta-gradient {
+  background: #f99e1a;
+  box-shadow: none;
+  color: #1a1206;
+}
+
+.cta-gradient:hover {
+  opacity: 0.94;
+  box-shadow: none;
+}
+
+.glass {
+  background: rgba(28, 32, 36, 0.55);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 176, 136, 0.16);
+  box-shadow: none;
+}
+
+/* iOS-style liquid glass — frosted panels over the hero wallpaper */
+.glass-liquid {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.14) 0%,
+    rgba(255, 255, 255, 0.05) 38%,
+    rgba(249, 158, 26, 0.07) 100%
+  );
+  backdrop-filter: blur(28px) saturate(1.45);
+  -webkit-backdrop-filter: blur(28px) saturate(1.45);
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.glass-liquid::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    ellipse 90% 55% at 50% -20%,
+    rgba(255, 255, 255, 0.22),
+    transparent 55%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glass-liquid > * {
+  position: relative;
+  z-index: 1;
+}
+
+.glass-liquid-nav {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
+  backdrop-filter: blur(22px) saturate(1.4);
+  -webkit-backdrop-filter: blur(22px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.glass-liquid-pill {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.12),
+    rgba(255, 255, 255, 0.04)
+  );
+  backdrop-filter: blur(20px) saturate(1.35);
+  -webkit-backdrop-filter: blur(20px) saturate(1.35);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.glass-liquid-buy {
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.hero-video-wrap {
+  background: #0c0d10;
+}
+
+/* Hide third-party watermarks on embedded Overwatch preview videos */
+.video-brand-mask {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  background: #000;
+}
+
+/* Crop battlelog header bar out of the top of the frame */
+.video-brand-crop {
+  top: -6% !important;
+  height: 112% !important;
+  width: 100%;
+  object-position: center 42%;
+}
+
+.video-brand-blur {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4.25rem;
+  z-index: 3;
+  pointer-events: none;
+  backdrop-filter: blur(14px) saturate(1.1);
+  -webkit-backdrop-filter: blur(14px) saturate(1.1);
+  background: linear-gradient(
+    180deg,
+    rgba(16, 17, 20, 0) 0%,
+    rgba(16, 17, 20, 0.55) 35%,
+    rgba(28, 32, 36, 0.92) 100%
+  );
+}
+
+/* Cover any leftover Battlelog / watermark strip at the top */
+.video-brand-blur--top {
+  top: 0;
+  bottom: auto;
+  height: 4.25rem;
+  background: linear-gradient(
+    0deg,
+    rgba(16, 17, 20, 0) 0%,
+    rgba(16, 17, 20, 0.72) 45%,
+    rgba(16, 17, 20, 0.98) 100%
+  );
+}
+
+@media (min-width: 640px) {
+  .video-brand-blur {
+    height: 5rem;
+  }
+
+  .video-brand-blur--top {
+    height: 5rem;
+  }
+
+  .video-brand-crop {
+    top: -7% !important;
+    height: 114% !important;
+  }
+}
+
+.hero-video-bg {
+  border: 0;
+  outline: none;
+  pointer-events: none;
+  -webkit-appearance: none;
+  filter: saturate(1.05) contrast(1.04) brightness(0.82);
+}
+
+.hero-video-bg--cinematic {
+  transform: scale(1.03);
+  object-position: 50% 42%;
+  filter: saturate(1.1) contrast(1.06) brightness(0.88);
+}
+
+.hero-video-wrap--wallpaper {
+  inset: 0;
+}
+
+.hero-video-bg--wallpaper {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  min-height: 100%;
+  min-width: 100%;
+  object-fit: cover;
+  object-position: center center;
+  transform: none;
+  filter: saturate(1.06) contrast(1.04) brightness(0.94);
+}
+
+.hero-video-tint--wallpaper {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.25) 0%,
+    transparent 22%,
+    transparent 55%,
+    rgba(12, 13, 16, 0.35) 100%
+  );
+}
+
+.home-wallpaper-fixed picture,
+.home-wallpaper-img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  height: 100%;
+  width: 100%;
+  min-height: 100%;
+  min-width: 100%;
+}
+
+.home-wallpaper-img {
+  object-fit: cover;
+  object-position: center center;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  filter: saturate(1.08) contrast(1.04) brightness(1.02);
+  image-rendering: auto;
+}
+
+.home-wallpaper-shine {
+  background: radial-gradient(
+    ellipse 80% 50% at 50% 18%,
+    rgba(255, 255, 255, 0.06),
+    transparent 60%
+  );
+  mix-blend-mode: soft-light;
+}
+
+.home-wallpaper-scrim {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.12) 0%,
+    transparent 28%,
+    rgba(12, 13, 16, 0.35) 72%,
+    rgba(12, 13, 16, 0.88) 92%,
+    #0c0d10 100%
+  );
+}
+
+/* Light OW2 logo banner — keep nav + hero copy readable */
+.home-wallpaper-fixed--brand .home-wallpaper-img {
+  filter: saturate(1.02) contrast(1.02) brightness(1);
+}
+
+.home-wallpaper-fixed--brand .home-wallpaper-shine {
+  opacity: 0;
+}
+
+.home-wallpaper-fixed--brand .home-wallpaper-scrim {
+  background: linear-gradient(
+    180deg,
+    rgba(12, 13, 16, 0.72) 0%,
+    rgba(12, 13, 16, 0.2) 18%,
+    transparent 42%,
+    rgba(12, 13, 16, 0.45) 78%,
+    rgba(12, 13, 16, 0.92) 94%,
+    #0c0d10 100%
+  );
+}
+
+.home-page-body {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(12, 13, 16, 0.75) 8rem,
+    #0c0d10 14rem
+  );
+}
+
+.hero-pulse {
+  background: radial-gradient(
+    ellipse 45% 35% at 50% 40%,
+    rgba(255, 159, 26, 0.22),
+    transparent 65%
+  );
+  animation: hero-pulse 5s ease-in-out infinite;
+  mix-blend-mode: screen;
+}
+
+@keyframes hero-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.04);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-pulse {
+    animation: none;
+    opacity: 0.5;
+  }
+}
+
+.hero-video-tint--cinematic {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(12, 13, 16, 0.2) 35%,
+    rgba(12, 13, 16, 0.75) 100%
+  );
+}
+
+.hero-video-tint {
+  background: linear-gradient(
+    180deg,
+    rgba(12, 13, 16, 0.15) 0%,
+    rgba(12, 13, 16, 0.05) 40%,
+    rgba(12, 13, 16, 0.72) 100%
+  );
+  mix-blend-mode: normal;
+  opacity: 1;
+}
+
+.hero-video-tint-glow {
+  background: none;
+  opacity: 0;
+}
+
+.hero-video-bg::-webkit-media-controls,
+.hero-video-bg::-webkit-media-controls-enclosure,
+.hero-video-bg::-webkit-media-controls-panel,
+.hero-video-bg::-webkit-media-controls-start-playback-button,
+.hero-video-bg::-webkit-media-controls-overlay-play-button,
+.hero-video-bg::-webkit-media-controls-play-button {
+  display: none !important;
+  -webkit-appearance: none;
+  opacity: 0;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+}
+
+.page-body {
+  background: transparent;
+  color: var(--ink);
+}
+
+/* Shared content pages: dark purple (support / reviews / product) */
+.content-surface {
+  background:
+    radial-gradient(ellipse 75% 45% at 8% -10%, rgba(255, 176, 136, 0.07), transparent 55%),
+    radial-gradient(ellipse 50% 30% at 94% 12%, rgba(194, 65, 12, 0.04), transparent 50%),
+    linear-gradient(180deg, #14161c 0%, #12141a 55%, #0c0d10 100%);
+  color: var(--ink);
+}
+
+/* Same surface as the page — no separate frosted bar */
+.content-surface-nav {
+  border-bottom: 1px solid rgba(255, 176, 136, 0.1);
+  background: transparent;
+}
+
+.content-surface .nav-chip {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 176, 136, 0.14);
+}
+
+.page-band {
+  background:
+    linear-gradient(180deg, rgba(255, 106, 42, 0.06), transparent 40%),
+    var(--bg-band);
+}
+
+.page-card {
+  background: linear-gradient(165deg, rgba(36, 41, 46, 0.95), rgba(22, 25, 28, 0.98));
+  border: 1px solid var(--border);
+  box-shadow: none;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.page-card:hover {
+  border-color: rgba(255, 176, 136, 0.22);
+  background: linear-gradient(165deg, rgba(44, 49, 54, 0.98), rgba(28, 32, 36, 0.99));
+  box-shadow: none;
+}
+
+.page-card.glass-liquid {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(255, 255, 255, 0.04) 42%,
+    rgba(26, 29, 38, 0.55) 100%
+  );
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.page-card.glass-liquid:hover {
+  border-color: rgba(255, 255, 255, 0.32);
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.16) 0%,
+    rgba(255, 255, 255, 0.06) 42%,
+    rgba(32, 36, 48, 0.62) 100%
+  );
+}
+
+.icon-well {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 2px;
+  background: linear-gradient(145deg, rgba(255, 106, 42, 0.28), rgba(16, 17, 20, 0.92));
+  border: 1px solid rgba(255, 176, 136, 0.22);
+  color: #ffd7c2;
+  box-shadow: none;
+}
+
+.hero-to-body {
+  background: linear-gradient(to bottom, transparent, #0c0d10);
+  height: 6rem;
+  margin-top: -6rem;
+  position: relative;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.game-cover-img {
+  filter: saturate(1.08) contrast(1.04) brightness(0.95);
+  transition: filter 0.35s ease, transform 0.5s ease;
+}
+
+.game-cover-img--color {
+  filter: saturate(1.12) contrast(1.05) brightness(1);
+}
+
+.group:hover .game-cover-img:not(.game-cover-img--color),
+a:hover .game-cover-img:not(.game-cover-img--color) {
+  filter: saturate(1.2) contrast(1.06) brightness(1.02);
+  transform: scale(1.03);
+}
+
+.status-pill {
+  color: #ffb088;
+}
+
+.accent-text {
+  color: var(--accent-soft);
+}
+
+.rounded-full,
+.rounded-3xl,
+.rounded-2xl,
+.rounded-xl {
+  border-radius: 2px !important;
+}
+
+h1,
+h2 {
+  letter-spacing: -0.045em;
+}
+
+/* Cheat menu showcase — site orange theme */
+.cheat-menu-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) var(--bg-card);
+  scrollbar-gutter: stable;
+}
+
+.cheat-menu-scroll::-webkit-scrollbar {
+  width: 10px;
+}
+
+.cheat-menu-scroll::-webkit-scrollbar-track {
+  background: var(--bg-card);
+  border-radius: 5px;
+  margin: 4px 0;
+}
+
+.cheat-menu-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--accent-soft), var(--accent) 45%, var(--accent-deep));
+  border-radius: 5px;
+  border: 2px solid var(--bg-card);
+  min-height: 48px;
+}
+
+.cheat-menu-scroll::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ffd08a, #ff8a4c);
+}
+
+.cheat-rolling-wrap {
+  box-shadow: inset 0 0 0 1px var(--glow-soft);
+}
+
+.cheat-rolling-thumb {
+  background: linear-gradient(180deg, var(--accent-soft), var(--accent));
+}
+
+.cheat-feature-box {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+
+.cheat-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--bg-card-hover);
+}
+
+.cheat-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--glow);
+  cursor: pointer;
+}
+
+.buy-now-pill {
+  border-radius: 9999px;
+}
+
+.cheat-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: none;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+}
+
+.nav-chip {
+  background: rgba(16, 17, 20, 0.72);
+  border: 1px solid rgba(255, 106, 42, 0.28);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: none;
+}
