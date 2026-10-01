@@ -531,6 +531,15 @@ function main() {
   for (const target of sitemapTargets) {
     writeFileSync(target, sitemap, 'utf8')
   }
+  const urlList = allPaths
+    .map((path) => siteUrl(path === '/' ? '/' : path))
+    .sort((a, b) => a.localeCompare(b))
+    .join('\n')
+    .concat('\n')
+  writeFileSync(join(publicDir, 'sitemap-urls.txt'), urlList, 'utf8')
+  if (existsSync(distDir)) {
+    writeFileSync(join(distDir, 'sitemap-urls.txt'), urlList, 'utf8')
+  }
   const robotsBody = [
       'User-agent: Googlebot',
       'Allow: /',

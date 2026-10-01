@@ -1,4 +1,34 @@
-# Deploy on Cloudflare (fix “no repositories”)
+# Deploy on Cloudflare
+
+## Site works in Cloudflare but browser shows `DNS_PROBE_FINISHED_NXDOMAIN`
+
+That error means **your PC or router’s DNS resolver does not know `overwatchhack.org` yet** — not that the Worker deploy failed.
+
+The live Worker **does** serve pages when the hostname resolves (custom domains in **Workers & Pages → overwatchhacks → Domains**).
+
+### Fix on your PC
+
+1. **Registrar nameservers** (where you bought the domain) must be Cloudflare only, for example:
+   - `cody.ns.cloudflare.com`
+   - `khloe.ns.cloudflare.com`
+2. In **Cloudflare → Websites → overwatchhack.org**, zone status must be **Active** (not “Pending nameserver update”).
+3. **Flush DNS** (Windows, admin PowerShell): `ipconfig /flushdns`
+4. Set adapter DNS to **1.1.1.1** and **1.0.0.1** (or use Cloudflare WARP), then reload `https://overwatchhack.org`.
+5. Test on **mobile data** (not Wi‑Fi). If it works there, your router DNS is stale — reboot the router or change its upstream DNS.
+
+### Sitemaps (after DNS works)
+
+| URL | Purpose |
+|-----|---------|
+| `https://overwatchhack.org/sitemap.xml` | Full XML sitemap (84 pages + images) for Google/Bing |
+| `https://overwatchhack.org/sitemap-urls.txt` | Plain list of canonical page URLs |
+| `https://overwatchhack.org/robots.txt` | Points crawlers at the XML sitemap |
+
+Worker preview URL (`*.workers.dev`) may **404** when the project uses **custom domains only** — use the apex domain above.
+
+---
+
+## Fix “no repositories” on Git connect
 
 Primary remote: **`https://github.com/notfaadi/overwatchhacks`** · branch **`main`**.
 
