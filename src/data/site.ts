@@ -43,9 +43,9 @@ const INDEX_ROBOTS =
 
 export const SEO = {
   home: {
-    title: 'Overwatch Hacks & Cheats 2025 | Undetected Aimbot, Wallhack & ESP',
+    title: 'Overwatch Hacks — Undetected Aimbot, ESP & Wallhack',
     description:
-      'Download the only working Overwatch 2 hacks with undetected aimbot, wallhack, and ESP. Private cheats with zero bans. Updated daily for Season 14.',
+      'Undetected Overwatch 2 hacks for PC: aimbot, wallhack, ESP and radar. Live anti-cheat status, setup forums and secure checkout — Season 14.',
     path: '/',
     ogType: 'website',
     image: PAGE_OG.home,
@@ -105,7 +105,9 @@ export const SEO = {
 } as const satisfies Record<string, PageSeo>
 
 export const HOME_HEADINGS = {
-  h1: 'Overwatch Hacks & Cheats — Undetected Aimbot, ESP & Wallhack',
+  h1: 'Overwatch Hacks — Undetected Aimbot, ESP & Wallhack',
+  h2Intro:
+    'Buy undetected Overwatch 2 cheats with honest status labels',
   h2Features: 'Overwatch 2 aimbot, ESP, wallhack, triggerbot & radar',
   h2Featured: 'Overwatch ESP and silent aim Aimbot',
   h2About: 'Clear anti-cheat status before you buy Overwatch cheats',

@@ -82,12 +82,40 @@ const faq = readFileSync(join(dist, 'faq', 'index.html'), 'utf8')
 const support = readFileSync(join(dist, 'support', 'index.html'), 'utf8')
 const forums = readFileSync(join(dist, 'forums', 'index.html'), 'utf8')
 
-if (
-  !home.includes(
-    '<title>Overwatch Hacks &amp; Cheats 2025 | Undetected Aimbot, Wallhack &amp; ESP</title>',
-  )
-) {
-  fail('Homepage does not own the exact transactional title')
+function decodeEntities(value = '') {
+  return value
+    .replaceAll('&amp;', '&')
+    .replaceAll('&#38;', '&')
+    .replaceAll('&lt;', '<')
+    .replaceAll('&gt;', '>')
+    .replaceAll('&quot;', '"')
+    .replaceAll('&#39;', "'")
+}
+
+const HOME_TITLE = 'Overwatch Hacks — Undetected Aimbot, ESP & Wallhack'
+const homeTitle = decodeEntities(home.match(/<title>(.*?)<\/title>/)?.[1])
+if (homeTitle !== HOME_TITLE) {
+  fail(`Homepage title must be "${HOME_TITLE}" (Seobility SERP width)`)
+}
+if (homeTitle.length > 55) {
+  fail(`Homepage title too long for SERP (${homeTitle.length} chars, max 55)`)
+}
+if (!home.includes(`<h1`) || !home.includes('Undetected Aimbot, ESP &amp; Wallhack')) {
+  fail('Homepage h1 must align with the shortened title keywords')
+}
+for (const img of home.matchAll(/<img\b[^>]*>/gi)) {
+  const tag = img[0]
+  const alt = tag.match(/\balt="([^"]*)"/)?.[1]
+  if (alt === undefined || alt.trim().length < 8) {
+    fail(`Homepage image missing descriptive alt: ${tag.slice(0, 80)}`)
+  }
+}
+const homeDesc = decodeEntities(home.match(/<meta name="description" content="([^"]+)"/)?.[1])
+if (!homeDesc || homeDesc.length > 160) {
+  fail('Homepage meta description must exist and stay under 160 characters')
+}
+if (/^Download the only/i.test(homeDesc)) {
+  fail('Homepage description must match buy/status positioning, not download bait')
 }
 if (product.includes('<title>Buy Overwatch Hacks')) fail('Product details page competes with homepage')
 if ((faq.match(/"@type":"FAQPage"/g) || []).length !== 1) fail('/faq must own one FAQPage')
@@ -117,15 +145,6 @@ if (!reviews.includes('"reviewCount":12') || !reviews.includes('"ratingValue":"4
 if (support.includes('noindex')) fail('Support page must be indexable')
 if (!forums.includes('"@type":"BreadcrumbList"')) {
   fail('/forums must expose BreadcrumbList schema')
-}
-function decodeEntities(value = '') {
-  return value
-    .replaceAll('&amp;', '&')
-    .replaceAll('&#38;', '&')
-    .replaceAll('&lt;', '<')
-    .replaceAll('&gt;', '>')
-    .replaceAll('&quot;', '"')
-    .replaceAll('&#39;', "'")
 }
 
 for (const file of files) {
