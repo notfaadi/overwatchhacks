@@ -1,6 +1,8 @@
 # Deploy on Cloudflare (fix “no repositories”)
 
-Your code **is** on GitHub: `https://github.com/notfaadiroziroti-debug/overwatch-hacks` · branch **`main`**.
+Primary remote: **`https://github.com/notfaadi/overwatchhacks`** · branch **`main`**.
+
+(Legacy copy may exist at `notfaadiroziroti-debug/overwatch-hacks`.)
 
 Cloudflare shows **“There are no repositories on this GitHub account”** when the **Cloudflare GitHub App** is not allowed to read your repos (common with **private** repos or **zero repos selected** during install).
 
